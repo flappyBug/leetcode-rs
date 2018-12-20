@@ -8,7 +8,7 @@ impl Solution {
         let mut map = HashMap::new();
         s.chars()
             .enumerate()
-            // map.insert(k, v) will return None if k not exists,
+            // map.insert(k, v) will return None if k doesn't exist,
             // or pop Some(previous_v) if k exists
             .map(|(idx, c)| (idx as i32, map.insert(c, idx as i32)))
             .fold((0, 0), |(length, lo), (idx, op)| match op {
