@@ -1,6 +1,8 @@
+// https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
 pub struct Solution;
 
 impl Solution {
+    #[allow(clippy::cast_lossless)]
     pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
         let (m, n) = (nums1.len(), nums2.len());
         if m > n {
