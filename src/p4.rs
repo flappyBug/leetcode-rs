@@ -1,4 +1,4 @@
-// https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
+// https://leetcode.com/problems/median-of-two-sorted-arrays/
 pub struct Solution;
 
 impl Solution {
