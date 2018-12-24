@@ -46,7 +46,7 @@ mod tests {
     use super::Solution;
 
     macro_rules! parameterized {
-        ($($name:ident: $value: expr,)*) => {
+        ($($name:ident: $value:expr,)*) => {
             $(
                 #[test]
                 fn $name() {
