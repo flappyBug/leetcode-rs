@@ -3,7 +3,9 @@ pub struct Solution;
 
 impl Solution {
     pub fn convert(s: String, num_rows: i32) -> String {
-        if num_rows < 2 { return s; }
+        if num_rows < 2 {
+            return s;
+        }
         let sb = s.as_bytes();
         let len = sb.len();
         let num_rows = num_rows as usize;

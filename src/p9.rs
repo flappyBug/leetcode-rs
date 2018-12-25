@@ -3,7 +3,9 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_palindrome(mut x: i32) -> bool {
-        if x < 0 || (x % 10 == 0 && x != 0 ) { return false; }
+        if x < 0 || (x % 10 == 0 && x != 0) {
+            return false;
+        }
         let mut reverted = 0;
         while x > reverted {
             reverted = reverted * 10 + x % 10;

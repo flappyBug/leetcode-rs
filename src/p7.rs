@@ -4,7 +4,9 @@ pub struct Solution;
 impl Solution {
     pub fn reverse(x: i32) -> i32 {
         let mut s: String = x.abs().to_string().chars().rev().collect();
-        if x < 0 { s.insert(0, '-') }
+        if x < 0 {
+            s.insert(0, '-')
+        }
         s.parse().unwrap_or(0)
     }
 }
