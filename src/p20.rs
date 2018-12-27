@@ -9,8 +9,8 @@ impl Solution {
                 '(' | '[' | '{' => v.push(c),
                 _ => match (v.pop(), c) {
                     (Some('('), ')') | (Some('['), ']') | (Some('{'), '}') => (),
-                    _ => return false
-                }
+                    _ => return false,
+                },
             }
         }
         v.is_empty()
