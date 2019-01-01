@@ -12,6 +12,7 @@ impl Solution {
             .collect();
         let mut ans = 0;
         for r in 0..nrows {
+            #[allow(clippy::needless_range_loop)]
             for c in 0..ncols {
                 ans += rows_max[r].min(cols_max[c]) - grid[r][c];
             }
