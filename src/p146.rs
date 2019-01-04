@@ -1,8 +1,8 @@
 // https://leetcode.com/problems/lru-cache/
 // ref: https://docs.rs/lru/0.1.11/src/lru/lib.rs.html
 use std::collections::HashMap;
-use std::ptr;
 use std::mem;
+use std::ptr;
 
 struct LRUEntry {
     key: i32,
@@ -46,11 +46,17 @@ impl LRUCache {
         }
     }
 
-    pub fn cap(&self) -> usize { self.cap }
+    pub fn cap(&self) -> usize {
+        self.cap
+    }
 
-    pub fn len(&self) -> usize { self.map.len() }
+    pub fn len(&self) -> usize {
+        self.map.len()
+    }
 
-    pub fn is_empty(&self) -> bool { self.map.is_empty() }
+    pub fn is_empty(&self) -> bool {
+        self.map.is_empty()
+    }
 
     pub fn get(&mut self, key: i32) -> i32 {
         let (node_ptr, val) = if let Some(node) = self.map.get_mut(&key) {
