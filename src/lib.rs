@@ -17,6 +17,7 @@ pub mod p39;
 pub mod p4;
 pub mod p46;
 pub mod p48;
+pub mod p49;
 pub mod p5;
 pub mod p59;
 pub mod p6;
