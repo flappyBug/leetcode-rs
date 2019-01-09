@@ -10,7 +10,7 @@ impl Solution {
         sorted_bytes.iter_mut().for_each(|v| v.sort_unstable());
         let mut map = HashMap::<Vec<u8>, Vec<usize>>::new();
         for (idx, bytes) in sorted_bytes.into_iter().enumerate() {
-            map.entry(bytes).or_insert_with( Vec::new).push(idx)
+            map.entry(bytes).or_insert_with(Vec::new).push(idx)
         }
         map.values()
             .map(|idxs| {
