@@ -1,6 +1,7 @@
 #![allow(clippy::needless_pass_by_value)]
 
 pub mod p1;
+pub mod p10;
 pub mod p11;
 pub mod p146;
 pub mod p15;
