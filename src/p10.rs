@@ -40,34 +40,32 @@ impl Solution {
 
     fn is_match_recursive(s: &[u8], p: &[Hir]) -> bool {
         if s.is_empty() && p.is_empty() {
-            return true
+            return true;
         } else if p.is_empty() {
-            return false
+            return false;
         }
         match p[0] {
             Hir::Exact(c) => {
                 if s.is_empty() || s[0] != c {
-                    return false
+                    return false;
                 }
                 Solution::is_match_recursive(&s[1..], &p[1..])
-            },
+            }
             Hir::Glob => {
                 if s.is_empty() {
-                    return false
+                    return false;
                 }
                 Solution::is_match_recursive(&s[1..], &p[1..])
-            },
+            }
             Hir::ZeroOrMore(ref h) => {
                 if s.is_empty() {
-                    return Solution::is_match_recursive(s, &p[1..])
+                    return Solution::is_match_recursive(s, &p[1..]);
                 }
                 match **h {
-                    Hir::Exact(c) if s[0] != c => {
-                        Solution::is_match_recursive(s, &p[1..])
-                    }
+                    Hir::Exact(c) if s[0] != c => Solution::is_match_recursive(s, &p[1..]),
                     _ => {
-                        Solution::is_match_recursive(s, &p[1..]) ||
-                            Solution::is_match_recursive(&s[1..], p)
+                        Solution::is_match_recursive(s, &p[1..])
+                            || Solution::is_match_recursive(&s[1..], p)
                     }
                 }
             }
@@ -153,7 +151,6 @@ impl Solution {
 //    repeat: bool
 //}
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -197,7 +194,10 @@ mod tests {
     #[test]
     fn c1() {
         assert!(!Solution::is_match("aa".to_owned(), "a".to_owned()));
-        assert!(!Solution::is_match("mississippi".to_owned(), "mis*is*p*.".to_owned()));
+        assert!(!Solution::is_match(
+            "mississippi".to_owned(),
+            "mis*is*p*.".to_owned()
+        ));
         assert!(Solution::is_match("aa".to_owned(), "a*".to_owned()));
         assert!(Solution::is_match("aab".to_owned(), "c*a*b".to_owned()));
     }

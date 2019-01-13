@@ -20,7 +20,7 @@ impl Solution {
                 match_at += 1;
                 s_idx = match_at;
             } else {
-                return false
+                return false;
             }
         }
         while p_idx < p.len() && p[p_idx] == b'*' {
