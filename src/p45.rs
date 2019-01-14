@@ -12,7 +12,6 @@ impl Solution {
         while search_end < nums.len() {
             // while can't finish in one jump
             current_idx = (search_start..search_end) // search range
-                .into_iter()
                 .max_by_key(|&idx| idx + nums[idx] as usize)
                 .unwrap();
             search_start = search_end; // since position before search_end have been searched
