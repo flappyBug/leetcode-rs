@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
 pub struct Solution;
 impl Solution {
+    #[allow(clippy::ptr_arg)]
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
         if nums.is_empty() {
             return 0;

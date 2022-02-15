@@ -15,8 +15,8 @@ impl Solution {
                 match_at = s_idx;
                 star_idx = Some(p_idx);
                 p_idx += 1;
-            } else if star_idx.is_some() {
-                p_idx = star_idx.unwrap() + 1;
+            } else if let Some(star_idx) = star_idx {
+                p_idx = star_idx + 1;
                 match_at += 1;
                 s_idx = match_at;
             } else {
@@ -53,5 +53,4 @@ mod tests {
         c4: ("adceb", "*a*b", true),
         c5: ("acdcb", "a*c?b", false),
     }
-
 }

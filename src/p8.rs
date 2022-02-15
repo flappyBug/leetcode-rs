@@ -11,7 +11,7 @@ impl Solution {
     pub fn my_atoi(s: String) -> i32 {
         let slice = s.trim_start();
 
-        let (sign, skip_count) = match slice.chars().nth(0) {
+        let (sign, skip_count) = match slice.chars().next() {
             Some('-') => (Sign::Neg, 1),
             Some('+') => (Sign::Pos, 1),
             Some(c) if c.is_digit(10) => (Sign::Pos, 0),

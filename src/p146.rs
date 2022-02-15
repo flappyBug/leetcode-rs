@@ -2,11 +2,12 @@
 // ref: https://docs.rs/lru/0.1.11/src/lru/lib.rs.html
 use std::collections::HashMap;
 use std::mem;
+use std::mem::MaybeUninit;
 use std::ptr;
 
 struct LRUEntry {
-    key: i32,
-    val: i32,
+    key: MaybeUninit<i32>,
+    val: MaybeUninit<i32>,
     prev: *mut LRUEntry,
     next: *mut LRUEntry,
 }
@@ -14,8 +15,17 @@ struct LRUEntry {
 impl LRUEntry {
     fn new(key: i32, val: i32) -> Self {
         LRUEntry {
-            key,
-            val,
+            key: MaybeUninit::new(key),
+            val: MaybeUninit::new(val),
+            prev: ptr::null_mut(),
+            next: ptr::null_mut(),
+        }
+    }
+
+    fn new_sigil() -> Self {
+        LRUEntry {
+            key: mem::MaybeUninit::uninit(),
+            val: mem::MaybeUninit::uninit(),
             prev: ptr::null_mut(),
             next: ptr::null_mut(),
         }
@@ -32,8 +42,8 @@ pub struct LRUCache {
 impl LRUCache {
     pub fn new(cap: i32) -> Self {
         let cap = cap as usize;
-        let head: *mut LRUEntry = unsafe { Box::into_raw(Box::new(mem::uninitialized())) };
-        let tail: *mut LRUEntry = unsafe { Box::into_raw(Box::new(mem::uninitialized())) };
+        let head: *mut LRUEntry = Box::into_raw(Box::new(LRUEntry::new_sigil()));
+        let tail: *mut LRUEntry = Box::into_raw(Box::new(LRUEntry::new_sigil()));
         unsafe {
             (*head).next = tail;
             (*tail).prev = head;
@@ -66,7 +76,7 @@ impl LRUCache {
         };
         self.detach(node_ptr);
         self.attach(node_ptr);
-        val
+        unsafe { val.assume_init() }
     }
 
     pub fn put(&mut self, key: i32, value: i32) {
@@ -75,15 +85,15 @@ impl LRUCache {
             .get_mut(&key)
             .map(|node| &mut (**node) as *mut LRUEntry);
         if let Some(node_ptr) = node_ptr {
-            unsafe { (*node_ptr).val = value }
+            unsafe { (*node_ptr).val = MaybeUninit::new(value) }
             self.detach(node_ptr);
             self.attach(node_ptr);
         } else {
             let mut node = if self.len() == self.cap() {
-                let old_key = unsafe { (*(*self.tail).prev).key };
+                let old_key = unsafe { (*(*self.tail).prev).key.assume_init() };
                 let mut old_node = self.map.remove(&old_key).unwrap();
-                old_node.key = key;
-                old_node.val = value;
+                old_node.key = MaybeUninit::new(key);
+                old_node.val = MaybeUninit::new(value);
                 self.detach(&mut *old_node as *mut LRUEntry);
                 old_node
             } else {

@@ -10,7 +10,7 @@ impl Solution {
 
     fn backtrack(ans: &mut Vec<String>, cur: String, open: usize, close: usize, max: usize) {
         if cur.len() == max * 2 {
-            ans.push(cur.clone());
+            ans.push(cur);
             return;
         }
 
@@ -18,7 +18,7 @@ impl Solution {
             Solution::backtrack(ans, cur.clone() + "(", open + 1, close, max);
         }
         if close < open {
-            Solution::backtrack(ans, cur.clone() + ")", open, close + 1, max);
+            Solution::backtrack(ans, cur + ")", open, close + 1, max);
         }
     }
 }

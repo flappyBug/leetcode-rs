@@ -3,6 +3,7 @@
 pub struct Solution;
 
 impl Solution {
+    #[allow(clippy::ptr_arg)]
     pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
         let len = matrix.len();
         for i in 0..(len / 2) {

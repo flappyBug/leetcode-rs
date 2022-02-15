@@ -1,4 +1,7 @@
 #![allow(clippy::needless_pass_by_value)]
+#![allow(clippy::ptr_arg)]
+// https://github.com/rust-lang/rust-clippy/issues/5354
+#![allow(clippy::comparison_chain)]
 
 pub mod p1;
 pub mod p10;
